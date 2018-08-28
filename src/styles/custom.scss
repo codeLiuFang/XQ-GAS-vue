@@ -1,0 +1,17 @@
+.fengeline {
+  width: calc(100%);
+  border-width: 1px 0 0 0;
+  border-color: #dddddd44;
+}
+
+/* 当出现左右布局得时候 一起使用  右侧面板左右布局 进行绝对定位处理 达到100%高度*/
+.leftside {
+  position: absolute;
+  height: 100%;
+  width: 170px;
+}
+
+.rightside {
+  width: 100%;
+  padding-left: 170px;
+}
