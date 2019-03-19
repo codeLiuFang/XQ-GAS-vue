@@ -4,7 +4,9 @@
 
       <router-link v-if="hasOneShowingChildren(item.children) && !item.children[0].children&&!item.alwaysShow" :to="item.path+'/'+item.children[0].path"
         :key="item.children[0].name">
+        <div class="xqlogo"></div>
         <el-menu-item :index="item.path+'/'+item.children[0].path" :class="{'submenu-title-noDropdown':!isNest}">
+        
           <svg-icon v-if="item.children[0].meta&&item.children[0].meta.icon" :icon-class="item.children[0].meta.icon"></svg-icon>
           <span v-if="item.children[0].meta&&item.children[0].meta.title" slot="title">{{generateTitle(item.children[0].meta.title)}}</span>
         </el-menu-item>
@@ -27,8 +29,8 @@
           </router-link>
         </template>
       </el-submenu>
-
     </template>
+
   </div>
 </template>
 
@@ -48,6 +50,7 @@ export default {
   },
   methods: {
     hasOneShowingChildren(children) {
+      console.log(children)
       const showingChildren = children.filter(item => {
         return !item.hidden
       })
@@ -60,4 +63,12 @@ export default {
   }
 }
 </script>
+<style>
+.xqlogo {
+  background: url('../../../../assets/images/logo.png') no-repeat center center;
+  width: 180px;
+  height: 38px;
+  margin: 20px auto;
+}
+</style>
 

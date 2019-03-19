@@ -1,6 +1,6 @@
 export default {
   route: {
-    dashboard: '首页',
+    dashboard: '',
     introduction: '简述',
     documentation: '文档',
     guide: '引导页',
@@ -67,8 +67,7 @@ export default {
     theme: '换肤'
   },
   login: {
-    title: 'GTP通用平台',
-    logIn: '登录',
+    logIn: '登  录',
     username: '账号',
     password: '密码',
     any: '随便填',

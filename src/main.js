@@ -16,11 +16,10 @@ import './icons' // icon
 import './errorLog' // error log
 import './permission' // permission control
 // import './mock' // simulation data
-
 // 引入moment日期格式化组件
 import moment from 'moment'
 Vue.prototype.$moment = moment
-
+import './assets/icon/iconfont.css'
 import * as filters from './filters' // global filters
 
 Vue.use(Element, {

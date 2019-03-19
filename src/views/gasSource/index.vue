@@ -1,9 +1,9 @@
 <template>
-<div>
+<div class="pbody">
     <el-row :gutter="20">
          <el-form ref="form"  label-width="80px">
   <el-col :span="6"> <el-form-item label="气源类型">
-    <el-select v-model="sourcesTypeid"  placeholder="请选择类型" @change="changeSourcesType">
+    <el-select v-model="sourcesTypeid"  placeholder="请选择类型" >
         <el-option
       v-for="item in sourcesType"
       :key="item.sourcesTypeid"
@@ -13,7 +13,7 @@
     </el-select>
   </el-form-item></el-col>
   <el-col :span="6"> <el-form-item label="价格单位">
-    <el-select v-model="unitid" placeholder="请选择单位" @change="changeUnit">
+    <el-select v-model="unitid" placeholder="请选择单位" >
        <el-option
       v-for="item in unit"
       :key="item.unitid"
@@ -33,7 +33,10 @@
       <el-table
             ref='testTable'       
             :data="tableData"
-            style='width:100%'
+           class="gtable"
+            :header-cell-style="{
+            'background-color': '#f6f6f6',
+             }"   
             border
             :default-sort = "{prop: 'sourceName', order: 'ascending'}"
             >
@@ -99,7 +102,7 @@
               </div>
             </el-dialog>
             <!-- 编辑end -->
-          <el-pagination
+          <el-pagination class="pstyle"
                   :current-page="currentPage"
                   :page-sizes='[10, 20, 30, 40]'
                   :page-size="pagesize"
@@ -117,8 +120,6 @@ export default {
       tableData: [],
       // 多选数组
       multipleSelection: [],
-      // 搜索条件
-      name: '',
       // 下拉菜单选项
       select: '',
       // 默认每页数据量
@@ -132,6 +133,7 @@ export default {
       // 默认数据总数
       totalCount: 1000,
       dialogFormVisible: false,
+      // 添加数据
       sourcesType: [
         {
           sourcesTypeid: '',
@@ -163,21 +165,19 @@ export default {
   },
   methods: {
     loadData: function(pageNumber, pageSize) {
-      axios
-        .get('/gas/sources', {
-          params: {
-            pageNumber: pageNumber,
-            pageSize: pageSize
-          }
-        })
-        .then(response => {
-          // console.log(JSON.parse(JSON.stringify(response.data.data.rows)))
-          if (response.data.msg === 'success') {
-            var data = response.data.data.rows
-            this.tableData = data
-            this.totalCount = response.data.data.total
-          }
-        })
+      axios.get('/gas/sources', {
+        params: {
+          pageNumber: pageNumber,
+          pageSize: pageSize
+        }
+      }).then(response => {
+        // console.log(JSON.parse(JSON.stringify(response.data.data.rows)))
+        if (response.data.msg === 'success') {
+          var data = response.data.data.rows
+          this.tableData = data
+          this.totalCount = response.data.data.total
+        }
+      })
     },
     // 气源类型select
     getSourceTypeSelect: function() {
@@ -210,32 +210,32 @@ export default {
             })
           }
           this.unit = unitData
-          // console.log(this.unit)
         }
       })
     },
-    changeSourcesType(val) {
-      this.sourcesTypeid = val
-    },
-    changeUnit(val) {
-      this.unitid = val
-    },
-    // 保存气源信息
+    // changeSourcesType(val) {
+    //   this.sourcesTypeid = val
+    // },
+    // changeUnit(val) {
+    //   this.unitid = val
+    // },
+    // 保存气源信息  新增
     saveSourceInfo: function() {
       var sourceData = {
         sourceName: this.sourceName,
-        sourceType: this.sourceType.label,
+        sourceType: this.sourcesTypeid,
         unit: this.unitid
       }
       console.log(sourceData)
       axios.post('/gas/sources', sourceData).then(response => {
-        var newData = JSON.stringify(response.data)
-        console.log(newData)
         if (response.data.msg === 'success') {
           this.$message({
             message: '添加成功',
             type: 'success'
           })
+          this.sourceName = ''
+          this.sourcesTypeid = ''
+          this.unitid = ''
           this.loadData(this.currentPage, this.pagesize)
         } else {
           this.$message({
@@ -250,7 +250,7 @@ export default {
       this.$confirm('确定删除气源信息?', '提示', {
         confirmButtonText: '确定',
         cancelButtonText: '取消',
-        type: 'warning' 
+        type: 'warning'
       })
         .then(() => {
           var url = '/gas/sources/' + row.id
@@ -283,12 +283,8 @@ export default {
       this.form.selectsourcesTypeid = row.sourceType.id
       this.form.selectunitid = row.unit.id
       this.form.id = row.id
-     
-      // this.sourceName = row.sourceName
-      // this.sourceType = row.sourceType
-      // this.unit = row.unit
     },
-    // 保存气源
+    // 保存气源  编辑
     saveGasSource: function() {
       var editGas = {
         id: this.form.id,
@@ -316,3 +312,6 @@ export default {
   }
 }
 </script>
+<style>
+@import '../../styles/common.css';
+</style>

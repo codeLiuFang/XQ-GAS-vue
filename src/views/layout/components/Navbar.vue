@@ -1,17 +1,18 @@
 <template>
+
   <el-menu class="navbar" mode="horizontal">
     <hamburger class="hamburger-container" :toggleClick="toggleSideBar" :isActive="sidebar.opened"></hamburger>
 
     <breadcrumb class="breadcrumb-container"></breadcrumb>
 
     <div class="right-menu">
-      <error-log class="errLog-container right-menu-item"></error-log>
+      <!-- <error-log class="errLog-container right-menu-item"></error-log> -->
 
       <el-tooltip effect="dark" :content="$t('navbar.screenfull')" placement="bottom">
         <screenfull class="screenfull right-menu-item"></screenfull>
       </el-tooltip>
 
-      <lang-select class="international right-menu-item"></lang-select>
+      <!-- <lang-select class="international right-menu-item"></lang-select> -->
 
       <!-- <el-tooltip effect="dark" :content="$t('navbar.theme')" placement="bottom">
         <theme-picker class="theme-switch right-menu-item"></theme-picker>
@@ -19,8 +20,10 @@
 
       <el-dropdown class="avatar-container right-menu-item" trigger="click">
         <div class="avatar-wrapper">
-          <img class="user-avatar" :src="avatar+'?imageView2/1/w/80/h/80'">
-          <i class="el-icon-caret-bottom"></i>
+          <!-- <img class="user-avatar" :src="avatar+'?imageView2/1/w/80/h/80'"> -->
+          <span class="back">退出</span>
+          <!-- <i class="icon iconfont-ali icon-ali-dianhua"></i>
+          <i class="el-icon-caret-bottom"></i> -->
         </div>
         <el-dropdown-menu slot="dropdown">
           <router-link to="/">
@@ -84,6 +87,9 @@ export default {
 .navbar {
   height: 50px;
   line-height: 50px;
+  .back {
+    vertical-align: 14px;
+}
   border-radius: 0px !important;
   .hamburger-container {
     line-height: 58px;

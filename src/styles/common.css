@@ -1,0 +1,18 @@
+.pstyle {
+    position: absolute;
+    /* top: 135%; */
+    /* left: 10%; */
+    margin-left: 15px;
+  }
+  .fbody {
+    position: relative;
+  }
+  .gtable{
+    width:90%; 
+    border: 1px solid #d7dde9; 
+    margin-left: 15px;
+    margin-top: 20px;
+  }
+  .htable{
+    background-color: #f6f6f6;
+  }

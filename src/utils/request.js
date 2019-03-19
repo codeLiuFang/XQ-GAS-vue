@@ -2,19 +2,26 @@ import axios from 'axios'
 import { Message } from 'element-ui'
 import store from '@/store'
 import { getToken } from '@/utils/auth'
-
+// import { getUrl } from '@/utils/utils'
 // create an axios instance
+// var service_url = getUrl()
+// var service_url = 'http://172.16.1.188:8080/wcip'
 const service = axios.create({
   baseURL: process.env.BASE_API, // api的base_url
   timeout: 60000 // request timeout
 })
-
+// const service = axios.create({
+//   baseURL: service_url, // api的base_url
+//   timeout: 60000 // request timeout
+// })
 // request interceptor
 service.interceptors.request.use(
   config => {
     // Do something before request is sent
     if (store.getters.token) {
-      config.headers['Authorization'] = getToken() // 让每个请求携带token-- ['X-Token']为自定义key 请根据实际情况自行修改
+      if (store.getters.roles[0] !== '普通用户') {
+        config.headers['Authorization'] = getToken() // 让每个请求携带token-- ['X-Token']为自定义key 请根据实际情况自行修改
+      }
     }
     return config
   },
@@ -24,7 +31,6 @@ service.interceptors.request.use(
     Promise.reject(error)
   }
 )
-
 // respone interceptor
 service.interceptors.response.use(
   response => response,
@@ -65,5 +71,4 @@ service.interceptors.response.use(
     return Promise.reject(error)
   }
 )
-
 export default service
